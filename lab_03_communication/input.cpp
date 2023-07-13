@@ -1,6 +1,19 @@
 #include "input.h"
 #include "global_var.h"
 
+#include <Adafruit_INA219.h>
+
+ Adafruit_INA219 ina219;
+
+
+  // Initialize the INA219.
+  // ina219.begin();
+  // By default the initialization will use the largest range (32V, 2A).  However
+  // you can call a setCalibration function to change this range (see comments).
+
+  // To use a slightly lower 32V, 1A range (higher precision on amps):
+  // ina219.setCalibration_32V_1A();
+
 void get_command_from_pc() {
   int space, do_it = 0;         // For reading in a space from the PC
   // unsigned long int value = 0;  // Secondary value for items that have a 'set' functionality
@@ -26,7 +39,7 @@ void get_command_from_pc() {
         Serial1.print(" help \n");
         Serial1.print("2 get RSSI \n");
         Serial1.print("3 toggle LED \n");
-        Serial1.print("4 report LED current (currently not functional) \n\n"); 
+        Serial1.print("4 report LED current \n\n"); 
         break;
 
       case 2:
@@ -39,14 +52,17 @@ void get_command_from_pc() {
         
         if (digitalRead(LED_pin)){Serial1.println(" LED on");}
         else {Serial1.println(" LED off");}
+        break;
 
-      case 4 
+      case 4: 
         float current_mA; 
-
+        ina219.begin();
         current_mA = ina219.getCurrent_mA();
 
+        Serial1.print(" ");
         Serial1.print(current_mA); 
         Serial1.print(" mA \n");
+        break;
 
     }
   }
