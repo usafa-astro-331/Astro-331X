@@ -25,7 +25,8 @@ void get_command_from_pc() {
       case 1:
         Serial1.print(" help \n");
         Serial1.print("2 get RSSI \n");
-        Serial1.print("3 toggle LED \n\n");
+        Serial1.print("3 toggle LED \n");
+        Serial1.print("4 report LED current (currently not functional) \n\n"); 
         break;
 
       case 2:
@@ -38,6 +39,14 @@ void get_command_from_pc() {
         
         if (digitalRead(LED_pin)){Serial1.println(" LED on");}
         else {Serial1.println(" LED off");}
+
+      case 4 
+        float current_mA; 
+
+        current_mA = ina219.getCurrent_mA();
+
+        Serial1.print(current_mA); 
+        Serial1.print(" mA \n");
 
     }
   }
