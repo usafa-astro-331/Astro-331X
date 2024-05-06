@@ -34,7 +34,6 @@ void setup() {
 
   Serial.begin(9600); // opens a serial port that will connect to your PC
   Serial1.begin(9600); // Arduino's hardware serial port
-  while(!Serial); // proceeds only after you open the PC's serial monitor
   
   // MKR Zero has a 12-bit ADC, but defaults to 10 bits
   // this line sets resolution to its 12-bit max
@@ -52,11 +51,12 @@ void loop() {
   volts = volt_counts * 1;
 
   String write_line = ""; 
-  
-  write_line += "time_(ms): "; 
-	write_line += millis(); 
-  write_line += "\t voltage_(counts): ";
-	write_line += volts; 
+
+  write_line += "time_(ms):"; 
+	  write_line += millis(); 
+    write_line += "\t";
+  write_line += "voltage_(counts):";
+	  write_line += volts; 
 	
 	Serial.println(write_line); // write to Arduino USB serial port
 	Serial1.println(write_line); // write to Arduino hardware serial port (may be connected to xbee)

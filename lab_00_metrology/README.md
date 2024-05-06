@@ -3,8 +3,6 @@
 > metrology: the science of  measurement, embracing both experimental and theoretical determinations  at any level of uncertainty in any field of science and technology
 > -International Bureau of Weights and Measures (BIPM) 
 
-
-
 ## solar panel output limits
 
 Measure the short-circuit current (max current, $I_{sc}$) and open-circuit voltage (max voltage, $V_{oc}$) of your solar array both in series and in parallel. You will use the range of these measurements to select appropriate sensors for current and voltage. 
@@ -51,8 +49,6 @@ Using a multimeter, measure the current and voltage of your solar array. Use the
 | ------------- | ------ | -------- |
 | $I_{sc}$ (mA) |        |          |
 | $V_{oc}$ (V)  |        |          |
-
-
 
 ## current and voltage measurements
 
@@ -141,10 +137,6 @@ Every sensor is resolution-limited. Sensors provides maximum resolution when the
 If you connect anything higher than 3.3 V directly to an input pin on your 3.3 V Arduino, the best possible outcome is that the Arduino will falsely report its maximum of 3.3 V. You may also permanently damage your Arduino. 
 
 To map a 30 V signal to a 3.3 V sensor, you will use a voltage divider. 
-
-
-
-
 
 ### Voltage Divider
 
@@ -258,8 +250,6 @@ Connect Arduino, upload the code, and view the value on the serial monitor. Cove
 Using the values in complete darkness and bright light (sunlight if possible), determine a calibration curve to distinguish darkness, dim light, and bright light.
 
 If you had multiple photoresistors/phototransistors you could measure their relative brightnesses to determine the sun's location. 
-
-
 
 ## Current measurement
 
