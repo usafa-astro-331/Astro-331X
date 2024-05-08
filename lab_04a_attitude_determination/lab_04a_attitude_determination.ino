@@ -1,5 +1,6 @@
 // ----- ICM 20948 IMU
 #include <ICM_20948.h>  // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
+	// data recorded from this file uses gyr/acc coords, not mag coords
 
 #define WIRE_PORT Wire  // Your desired Wire port.      Used when "USE_SPI" is not defined
 // The value of the last bit of the I2C address.
@@ -136,11 +137,16 @@ String printScaledAGMT(ICM_20948_I2C *sensor) {
 	write_line += "gyrz:";
   write_line += printFormattedFloat(sensor->gyrZ(), 5, 2);
   write_line += "\t"; //tab to separate fields
+  
+  // align magnetometer coordinates to gyro coordinates
+  // magx = gyrx
+  // magy = -gyry 
+  // magz = -gyrz
 	write_line += "magx:";
   write_line += printFormattedFloat(sensor->magX(), 5, 2);
   write_line += "\t"; //tab to separate fields
 	write_line += "magy:";
-  write_line += printFormattedFloat(sensor->magY(), 5, 2);
+  write_line += printFormattedFloat(-(sensor->magY() ), 5, 2);
 
   return write_line;
 }
@@ -176,10 +182,13 @@ void loop() {
 		write_line += sunny_reading; 
 
     // // find sun direction
-    // north =  ; // you fill in here--remember to end line with ;
-    // east =  ; // you fill in here--remember to end line with ;
-    // sun_direction = atan2(-east*1.0, -north) * RAD_TO_DEG + 180; 
-    // write_line += ", sun:"; 
+    // sun_x =  ; // you fill in here--remember to end line with ;
+    // sun_y =  ; // you fill in here--remember to end line with ;
+    // sun_direction = atan2(sun_y*1.0, sun_x*1.0)) * RAD_TO_DEG + 180; 
+			// *1.0 converts from int to float
+			// + 180 changes range to 0--360; 
+    // write_line += "\t"; //tab to separate fields
+	//	write_line += "sun:"; 
     // write_line += sun_direction; 
     
     Serial.println(write_line);
