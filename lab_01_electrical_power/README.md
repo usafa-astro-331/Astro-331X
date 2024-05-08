@@ -8,26 +8,12 @@ In your post-lab analysis, you will compare your prelab performance predictions 
 
 # Prelab activities
 
-Before the metrology lab, you need to determine the  expected range of current and voltage produced by FlatSAT’s solar array. 
-
-Connect FlatSAT’s array in series. Photovoltaic cells are diodes—energy will only flow through them one way. Using the block of 8 pins, use 3 female jumper cables to connect each cell to its neighbor. Each jumper cable should connect this way: `/` (not this way `\`)
-
-Connect the array’s output to a multimeter. While outside, point the array at the sun and record the maximum current and voltage.
-
-Repeat after you connect the array in parallel. 
-
-To connect in parallel, remove the 3 series jumpers and connect 8 parallel jumpers. Using the block of 10 pins, connect all of the positive (top) terminals together and all of the bottom pins together. The block of 10 pins contains 2 sets of 5 shorted (connected) pins: the tops are all connected and the bottoms are all connected. You can see this on the back. 
-
-Once you connect 4 jumpers between the cell positives and the positive bus bar (top row of 5), connect the free top pin to a multimeter. Repeat with the negative terminals. 
-
-Record your results. 
+If you have not already completed lab_00_metrology, measure your solar panel's output limits (maximum current and voltage in series and in parallel). 
 
 |          | voltage (V) | current (mA) |
 | -------- | ----------- | ------------ |
 | series   |             |              |
 | parallel |             |              |
-
-
 
 ## hardware
 
@@ -38,11 +24,9 @@ Record your results.
 
 ## equipment
 
-- benchtop power supply
-- ESD-safe grounding straps
+- sun
 - laptop
 - Micro USB cable
-- halogen lamp
 - USB micro SD card reader
 - wires
 - luxmeter
@@ -56,79 +40,85 @@ Record your results.
 
 - Arduino IDE
 - `lab_01_electrical_power.ino`
-
-
+- Arduino libraries (install using Arduino library manager)
+  - `Adafruit INA219`
 
 ## setup
 
-Wear and connect your ESD grounding bracelet. 
+Read `lab 1 analysis.pdf`. 
 
-Read `lab 1 analysis.pdf` and complete pre-lab activities. 
+Add required components to FlatSAT. 
 
+- INA219 current sensor breakout board (black)
 
+- solar array
+
+- potentiometer (blue dial)
 
 ![wiring diagram](../sources/fritzing/331X.svg)
 
+Record which solar panel you are using.
 
+Connect the four cells of the array in series. You will complete the data collection steps, and then repeat them with the cells connected in parallel.
+
+Connect components according to this schematic. 
+
+![](sources/electrical_schematic.svg)
+
+Ensure all grounds/ground rails are connected. 
+
+Connect the current sensor using I2C. If using a QWIIC cable: 
+
+- Black = GND
+- Red = 3.3V
+- Blue = SDA
+- Yellow = SCL
 
 ### prepare microSD card
 
 The Arduino MKR Zero has a microSD card slot. You will use this card to store data in various labs. If this is your first lab with an SD card, prepare the card. 
 
-- write your group name on a microSD card
 - insert the card in the USB reader and connect to your computer
-- Format the card
+- Format the card using FAT32
   - Window Explorer -> Right click -> format -> Fat 32 -> Ok
-  - While you format the card, name it after your group
+  - When you format the card, name it after your group
 - Insert the card into your Arduino MKR Zero
-
-### solar array
-
-Record which solar panel you are using. 
-
-Connect the four cells of the array in series. You will complete the data collection steps, and then repeat them with the cells connected in parallel. 
-
-Connect the solar array's output to the breadboard's bottom power rail. 
 
 ## upload FlatSAT code and test setup
 
-Open `lab 01 electrical power.ino` in the Arduino IDE. 
+Open `lab_01_electrical_power.ino` in the Arduino IDE. 
 
 Connect Arduino to computer via USB. 
 
 Select the correct board (Arduino MKRZERO) and port. 
 
-Expose the solar panel to the halogen light. 
-
 Upload your code. 
 
-Open serial monitor (tools -> serial monitor).
+Open serial monitor (tools -> serial plotter).
 
-Slowly turn the potentiometer and watch the current and voltage change on the LCD. (Deselect ‘value 1’, which is time.)
-
-Disconnect the Arduino and turn off the halogen light. 
+Slowly turn the potentiometer and watch the current and voltage change in the serial plotter. (Deselect ‘value 1’, which is time.)
 
 ## data collection scheme
 
-FlatSAT saves current and voltage to `iv_curve.csv` every 500 ms. On each powerup it writes a legend and then begins logging data. Subsequent powerups will again write a legend and add more data to the file. The legend message can be used to separate test runs. It will be obvious which run is series vs parallel. 
+FlatSAT saves current and voltage to `iv_curve.tsv` every 200 ms. On each powerup it writes a legend and then begins logging data. Subsequent powerups will again write a legend and add more data to the file. The legend message can be used to separate test runs. It will be obvious which run is series vs parallel. 
 
 ## collect solar array performance data outside
 
-Disconnect power so you're not saving excess data. 
+Disconnect power to the Arduino so you're not saving excess data. 
 
 Take FlatSAT and the luxmeter outside and find a test site in direct sunlight. 
 
 Point the luxmeter toward the sun and record the sun's power in lux. You will have to adjust the range to its maximum setting. The measured value may jump around, try to take an average value. Record the average for later use calculating efficiency. 
 
-Point FlatSAT at the sun and power it on. *Very* slowly (slower than you’re thinking), turn the potentiometer from one end to the other. FlatSAT will record current and voltage at 500 ms intervals. You will record periodic current and voltage measurements from the LCD display as a backup in case the stored data gets corrupted or lost. 
+Point FlatSAT at the sun and power it on. *Very* slowly (slower than you’re thinking), turn the potentiometer from one end to the other. FlatSAT will record current and voltage at 200 ms intervals. 
 
 Remove the potentiometer to record a measurement of $V_{oc}$. Short the potentiometer pins with a wire to record a measurement of $I_{sc}$. 
 
-Disconnect power, rewire the solar array in parallel, and repeat these steps to collect the parallel I-V data. 
+Disconnect power to the Arduino, rewire the solar array in parallel, and repeat these steps to collect the parallel I-V data. 
 
 ## data collection and analysis
 
-- transfer `iv_curve.csv` to your computer for later analysis
+- transfer `iv_curve.tsv` to your computer for later analysis
 - perform data analysis from `lab 1 analysis.pdf`
 
 ## cleanup
