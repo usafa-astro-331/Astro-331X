@@ -1,7 +1,6 @@
 // ----- ICM 20948 IMU
 #include <ICM_20948.h>  // Click here to get the library: http://librarymanager/All#SparkFun_ICM_20948_IMU
 
-#define SERIAL_PORT Serial
 #define WIRE_PORT Wire  // Your desired Wire port.      Used when "USE_SPI" is not defined
 // The value of the last bit of the I2C address.
 // On the SparkFun 9DoF IMU breakout the default is 1, and when the ADR jumper is closed the value becomes 0
@@ -23,7 +22,8 @@ const int chipSelect = SDCARD_SS_PIN;
 #endif
 
 void setup() {
-  SERIAL_PORT.begin(115200);
+  Serial.begin(115200);
+  Serial1.begin(9600);
   //  while (!SERIAL_PORT)
   //  {
   //  };
@@ -38,10 +38,13 @@ void setup() {
     myICM.begin(WIRE_PORT, AD0_VAL);
 
 
-    SERIAL_PORT.print(F("Initialization of the sensor returned: "));
-    SERIAL_PORT.println(myICM.statusString());
+    Serial.print(F("Initialization of the sensor returned: "));
+    Serial.println(myICM.statusString());
+    Serial1.print(F("Initialization of the sensor returned: "));
+    Serial1.println(myICM.statusString());
     if (myICM.status != ICM_20948_Stat_Ok) {
-      SERIAL_PORT.println("Trying again...");
+      Serial.println("Trying again...");
+      Serial1.println("Trying again...");
       delay(500);
     } else {
       initialized = true;
@@ -49,35 +52,40 @@ void setup() {
   }
 
   Serial.print("Initializing SD card...");
+  Serial1.print("Initializing SD card...");
   // see if the card is present and can be initialized:
   if (!SD.begin(chipSelect)) {
     Serial.println("Card failed, or not present");
+    Serial1.println("Card failed, or not present");
     // don't do anything more:
     while (1)
       ;
   }
   Serial.println("card initialized.");
+  Serial1.println("card initialized.");
   delay(2000);
 
-  File dataFile = SD.open("04a_att.dat", FILE_WRITE);
+  File dataFile = SD.open("04a_att.tsv", FILE_WRITE);
   // if the file is available, write to it:
   if (dataFile) {
     String write_line = ""; 
     write_line += "units:\n" ;
-    write_line += "time (ms)\n"; 
-    write_line += "gyr (dps)\n"; 
-    write_line += "mag (uT)\n"; 
-    write_line += "sun detector (count)\n"; 
-    write_line += "sun angle (deg)\n";
+    write_line += "  time (ms)\n"; 
+    write_line += "  gyr (dps)\n"; 
+    write_line += "  mag (uT)\n"; 
+    write_line += "  sun detector (count)\n"; 
+    write_line += "  sun angle (deg)\n";
 
     dataFile.print(write_line);
 
     Serial.print(write_line);
+	Serial1.print(write_line);
 
     dataFile.close();
   }
   // if the file isn't open, pop up an error:
   else { Serial.println("error opening log file"); 
+		 Serial1.println("error opening log file"); 
   }
 
 }  // end function setup
@@ -96,10 +104,8 @@ String printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
   float aval = abs(val);
   if (val < 0) {
     write_line += "-";
-    // SERIAL_PORT.print("-");
   } else {
     write_line += "+";
-    // SERIAL_PORT.print(" ");
   }
   for (uint8_t indi = 0; indi < leading; indi++) {
     uint32_t tenpow = 0;
@@ -111,7 +117,6 @@ String printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
     }
     if (aval < tenpow) {
       write_line += "0";
-      // SERIAL_PORT.print("0");
     } else {
       break;
     }
@@ -119,21 +124,22 @@ String printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
   if (val < 0) {
     write_line += -val;
     write_line += decimals;
-    // SERIAL_PORT.print(-val, decimals);
   } else {
     write_line += val;
     write_line += decimals;
-    // SERIAL_PORT.print(val, decimals);
   }
   return write_line;
 }  //end printformattedfloat()
 
 String printScaledAGMT(ICM_20948_I2C *sensor) {
-  String write_line = ", gyrz:";
+  String write_line = "\t"; //tab to separate fields
+	write_line += "gyrz:";
   write_line += printFormattedFloat(sensor->gyrZ(), 5, 2);
-  write_line += ", magx:";
+  write_line += "\t"; //tab to separate fields
+	write_line += "magx:";
   write_line += printFormattedFloat(sensor->magX(), 5, 2);
-  write_line += ", magy:";
+  write_line += "\t"; //tab to separate fields
+	write_line += "magy:";
   write_line += printFormattedFloat(sensor->magY(), 5, 2);
 
   return write_line;
@@ -156,14 +162,18 @@ void loop() {
     sunny_reading = analogRead(sunny_pin);    
     
     // output raw sun sensor data
-    write_line += ", sunpx:"; 
-    write_line += sunpx_reading; 
-    write_line += ", sunpy:"; 
-    write_line += sunpy_reading; 
-    write_line += ", sunnx:"; 
-    write_line += sunnx_reading; 
-    write_line += ", sunny:"; 
-    write_line += sunny_reading; 
+	write_line += "\t"; //tab to separate fields
+		write_line += "sunpx:"; 
+		write_line += sunpx_reading; 
+    write_line += "\t"; //tab to separate fields
+		write_line += "sunpy:"; 
+		write_line += sunpy_reading; 
+    write_line += "\t"; //tab to separate fields
+		write_line += "sunnx:"; 
+		write_line += sunnx_reading; 
+    write_line += "\t"; //tab to separate fields
+		write_line += "sunny:"; 
+		write_line += sunny_reading; 
 
     // // find sun direction
     // north =  ; // you fill in here--remember to end line with ;
@@ -173,8 +183,9 @@ void loop() {
     // write_line += sun_direction; 
     
     Serial.println(write_line);
+	Serial1.println(write_line);
 
-    File dataFile = SD.open("04a_att.dat", FILE_WRITE);
+    File dataFile = SD.open("04a_att.tsv", FILE_WRITE);
     // if the file is available, write to it:
     if (dataFile) {
       dataFile.println(write_line);
@@ -184,6 +195,7 @@ void loop() {
     // if the file isn't open, pop up an error:
     else {
       Serial.println("error opening data file");
+	  Serial1.println("error opening data file");
     }
 
     last_wrote += write_interval;
