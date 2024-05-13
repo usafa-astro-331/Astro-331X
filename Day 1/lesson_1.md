@@ -134,12 +134,13 @@ $$
 - Use an analog-to-digital converter. In the metrology lab we used Arduino’s built-in ADC to measure voltage from our voltage divider. 
 
 Equations:
+
 $$
 f_s≥2.2f_m
 $$
 
 $$
-Discrete\ \#=A_{min}+(A_{max}-A_{min} ) \left(\frac{Digital\ \#}{2^n} + \frac{1}{2^{n+1}} \right)
+Discrete\ num=A_{min}+(A_{max}-A_{min} ) \left(\frac{Digital\ num}{2^n} + \frac{1}{2^{n+1}} \right)
 $$
 
 $$
@@ -147,7 +148,7 @@ Quantization\ Step=\frac{A_{max}-A_{min}}{2^n}
 $$
 
 $$
-Error_{max}=\frac{A_Max-A_Min}{2^{n+1}}
+Error_{max}=\frac{A_{max}-A_{min}}{2^{n+1}}
 $$
 
 A is any analog signal
@@ -166,7 +167,7 @@ A is any analog signal
 
 3 bit: 8 levels
 
-line: $$y=mx+b$$
+line: $ y=mx+b$
 
 - in analog world we can define a point on the line to arbitrary precision
 - in digital world we have to decide how many bits to use to represent a point
@@ -184,7 +185,7 @@ line: $$y=mx+b$$
 
 **Example**
 
-![](sources/quantization_graph.png)
+![asdf](sources/quantizationgraph.png)
 
 |              |                | **Option #1**   |                | Option #2       |                |
 |:------------:|:--------------:|:---------------:|:--------------:|:---------------:| -------------- |
@@ -193,9 +194,3 @@ line: $$y=mx+b$$
 | 4-8 V        | 01             | 5.3  V          | 2.7  V         | 6  V            | 2  V           |
 | 8-12 V       | 10             | 10.7  V         | 2.7 V          | 10  V           | 2  V           |
 | 12-16 V      | 11             | 16  V           | 4  V           | 14  V           | 2  V           |
-
-- will measure electrical current in today’s metrology lab 
-  - what sensor should we pick? 
-  - what current ranges should we measure?
-  - in the *next* lab we will measure power output from our solar arrays—want to measure that much current
-- first lab: pick the right current sensor for the second lab
