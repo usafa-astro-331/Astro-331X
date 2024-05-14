@@ -116,10 +116,12 @@ if (averaging_index >= num_samples){
     
     current = current / float(num_samples); 
     voltage = voltage / float(num_samples);
-    write_line += ", current:";
-    write_line += current; 
-    write_line += ", voltage:";
-    write_line += voltage;
+    write_line += "\t"; 
+		write_line += ", current:";
+		write_line += current; 
+    write_line += "\t"; 
+		write_line += ", voltage:";
+		write_line += voltage;
     
     File dataFile = SD.open("iv_curve.tsv", FILE_WRITE);
               // if the file is available, write to it:
