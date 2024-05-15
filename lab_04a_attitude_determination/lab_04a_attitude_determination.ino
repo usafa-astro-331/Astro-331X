@@ -193,10 +193,10 @@ void loop() {
 
 
 // magnetometer range values used for calibration
-float x_max = 1.0; 
-float x_min = -1.0; 
-float y_max = 1.0;
-float y_min = -1.0; 
+float x_max = 80.0; 
+float x_min = 20.0; 
+float y_max = 77.0;
+float y_min = 28.0; 
 
 float x_range = (x_max - x_min)/2; 
 float x_bias = x_max-x_range; 
@@ -207,6 +207,14 @@ float magx, magy, heading;
     magx =  (myICM.magX() - x_bias) /x_range; 
     magy =  (myICM.magY() - y_bias) /y_range; 
     float Heading = atan2(magy, -magx) +PI; 
+
+    write_line += "\t"; //tab to separate fields
+		write_line += "magx:"; 
+    write_line += magx; 
+
+    write_line += "\t"; //tab to separate fields
+		write_line += "magy:"; 
+    write_line += magy; 
 
     write_line += "\t"; //tab to separate fields
 		write_line += "mag_head:"; 
