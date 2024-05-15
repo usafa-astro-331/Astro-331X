@@ -168,28 +168,28 @@ void loop() {
     sunny_reading = analogRead(sunny_pin);    
     
     // output raw sun sensor data
-	write_line += "\t"; //tab to separate fields
-		write_line += "sunpx:"; 
-		write_line += sunpx_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunpy:"; 
-		write_line += sunpy_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunnx:"; 
-		write_line += sunnx_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunny:"; 
-		write_line += sunny_reading; 
+	// write_line += "\t"; //tab to separate fields
+	// 	write_line += "sunpx:"; 
+	// 	write_line += sunpx_reading; 
+  //   write_line += "\t"; //tab to separate fields
+	// 	write_line += "sunpy:"; 
+	// 	write_line += sunpy_reading; 
+  //   write_line += "\t"; //tab to separate fields
+	// 	write_line += "sunnx:"; 
+	// 	write_line += sunnx_reading; 
+  //   write_line += "\t"; //tab to separate fields
+	// 	write_line += "sunny:"; 
+	// 	write_line += sunny_reading; 
 
-    // // find sun direction
-    // sun_x =  ; // you fill in here--remember to end line with ;
-    // sun_y =  ; // you fill in here--remember to end line with ;
-    // sun_direction = atan2(sun_y*1.0, sun_x*1.0)) * RAD_TO_DEG + 180; 
+    // find sun direction
+    sun_x = sunpx_reading-sunnx_reading ; // you fill in here--remember to end line with ;
+    sun_y = sunpy_reading-sunny_reading ; // you fill in here--remember to end line with ;
+    sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG ; 
 			// *1.0 converts from int to float
 			// + 180 changes range to 0--360; 
-    // write_line += "\t"; //tab to separate fields
-	//	write_line += "sun:"; 
-    // write_line += sun_direction; 
+    write_line += "\t"; //tab to separate fields
+		write_line += "sun:"; 
+    write_line += sun_direction; 
     
     Serial.println(write_line);
 	Serial1.println(write_line);
