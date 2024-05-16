@@ -87,7 +87,7 @@ delay(5000);
   }
   Serial1.println("card initialized.");
 
-  dataFile = SD.open("04b_att.dat", FILE_WRITE);
+  dataFile = SD.open("04c_att.tsv", FILE_WRITE);
   // if the file is available, write to it:
   if (dataFile) {
     String write_line = "";
@@ -103,18 +103,21 @@ delay(5000);
     dataFile.print(write_line);
 
     Serial.print(write_line);
+    Serial1.print(write_line);
 
     dataFile.close();
   }
   // if the file isn't open, pop up an error:
   else {
     Serial.println("error opening datalog");
+    Serial1.println("error opening datalog");
   }
 
  if(!bno.begin())
   {
     /* There was a problem detecting the BNO055 ... check your connections */
     Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    Serial1.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
     while(1);
   }
 
@@ -170,25 +173,32 @@ float Heading = 2*PI-(atan2(mags.y(), -mags.x()) +PI);
 
     // String write_line = "";
     String write_line = "t:";
-    write_line += t;
-    write_line += ", magx:";
+      write_line += t;
+    write_line += "\t
+      write_line += "magx:";
     write_line += mags.x();
-    write_line += ", magy:";
+    write_line += "\t
+      write_line += "magy:";
     write_line += mags.y();
-    write_line += ", head:";
+    write_line += "\t
+      write_line += "head:";
     write_line += Heading;
-    write_line += ", gyr:";
+    write_line += "\t
+      write_line += "gyr:";
     write_line += gyros.z();
-    write_line += ", ω_cmd:";
+    write_line += "\t
+      write_line += "ω_cmd:";
     write_line += speed_pwm * 1000; // speed in RPM
-    write_line += ", ω_meas:";
+    write_line += "\t
+      write_line += "ω_meas:";
     write_line += wheel_speed;
     
     
     // Print to serial monitor and file
     Serial.println(write_line);
+    Serial1.println(write_line);
 
-    File dataFile = SD.open("04b_att.dat", FILE_WRITE);
+    File dataFile = SD.open("04c_att.tsv", FILE_WRITE);
     // if the file is available, write to it:
     if (dataFile) {
       dataFile.println(write_line);
@@ -198,6 +208,7 @@ float Heading = 2*PI-(atan2(mags.y(), -mags.x()) +PI);
     // if the file isn't open, pop up an error:
     else {
       Serial.println("error opening file on SD card");
+      Serial1.println("error opening file on SD card");
     }
 
 
