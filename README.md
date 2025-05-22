@@ -1,7 +1,5 @@
 # Astro 331X
 
-This course uses Arduino-based to teach spacecraft concepts. Arduino is a ubiquitous open source electronic prototyping ecosystem built around a series of microcontrollers. 
-
 In this class we will use Arduinos to build a satellite analog called FlatSAT to explore spacecraft design lessons. FlatSAT is a mini version of the FalconSAT Avionics Test Bed (ATB). 
 
 <img src="sources/fritzing/331X_bb.svg" alt="breadboard"  />
@@ -10,7 +8,7 @@ In this class we will use Arduinos to build a satellite analog called FlatSAT to
 
 ## Lab overview
 
-Each lab group of 2-3 students will build a FlatSAT using solderless breadboards. Arduino microcontrollers will run FlatSAT. You will communicate with FlatSAT using the Arduino IDE on the lab computers.  
+Each lab group will build a FlatSAT using solderless breadboards. Arduino microcontrollers will run FlatSAT. You will communicate with FlatSAT using the Arduino IDE. 
 
 Each lab will explore a new concept, and will add new components to FlatSAT.
 
@@ -23,7 +21,7 @@ Lab 0 is a metrology lab, but it doesn’t get a number because we don’t start
 
 
 
-## Course overview
+## Schedule
 
 In general, each day will cover
 
@@ -33,21 +31,10 @@ In general, each day will cover
 - data analysis
 
 
+| Mon                                        | Tue              | Wed                | Thu                               | Fri            |
+| ------------------------------------------ | ---------------- | ------------------ | --------------------------------- | -------------- |
+| spacecraft overview, <br>electrical system | attitude sensors | attitude actuators | communication, <br>group projects | group projects |
 
-## Computer environment
 
-We will use the Arduino integrated development environment (IDE) to communicate with FlatSAT. We will also use several otehr tools to organize code and other course materials. 
 
-- git: software distribution and version control
-  
-  - tortoisegit: windows explorer integration for git
 
-- typedown: markdown viewer/editor (for lab instructions)
-
-- arduino-cli: manage arduino libraries
-
-## Getting started
-
-Before the first lab, open the `computer_environment` folder and follow the instructions in `README.md`. 
-
-Instructions and code for each lab are located in the lab's numbered folder. 

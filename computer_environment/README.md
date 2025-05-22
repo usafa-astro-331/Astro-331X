@@ -1,70 +1,31 @@
-# Getting started
 
-You will need to install several programs. This folder contains programs and batch scripts to setup the correct computing environment. These tools are setup for Windows. Equivalent tools exist for Mac or Linux, but you'll have to install your own. 
+# Install Arduino IDE 
+https://www.arduino.cc/en/software/ 
 
+## install board definitions
+tools → board...: → boards manager
+	install "Arduino SAMD Boards"
 
+## install libraries
+tools → manage libraries → install the following:
+- adafruit BNO055 (note: letter O then number zero)
+- adafruit INA219
+- arducam
+-  ==SparkFun 9DoF IMU…	==
+- TB9051FTGMotorCarrier
+- QuadratureEncoder
+- EnableInterrupt  
 
-## Install git
+# Other programs
+During the course you may also need to run the following programs, which are already included in the course content you downloaded. 
 
-If you are just getting started, copy `install_git.bat` to your local machine from https://github.com/usafa-astro-331/Astro-331X-2023/tree/main/computer_environment
+**PuTTY** 
+serial terminal
 
-Verify file contents using a text editor. You should do this before running any script. This script runs two commands using Windows' built-in command `winget` to install `git` and `tortoisegit`.  Complete setup of both programs. 
-
-- **git**: version control software
-
-- **TortoiseGit**: windows integration for git
-
-
-
-## Clone the course repository
-
-Copy the path to the course repository: https://github.com/usafa-astro-331/Astro-331X-2023
-
-Go to My Documents. Do not create a new course folder yet. 
-
-Right click -> Git clone
-
-Paste the course URL and click OK. 
+computer_environment/PuTTYPortable/PuTTYPortable.exe
 
 
+**ArduCAM Host**
+camera interface
 
-## Update the course
-
-This step is not necessary if you just cloned the course repository. 
-
-**This step should be performed before every lab to ensure you're using updated material.** 
-
-- Right click the course folder (or any location within the course folder). 
-- Git Sync -> Pull
-
-
-
-## Install tools
-
-Go to the `computer_environment` folder. 
-
-- Verify the contents of `install_tools.bat`. Run it to install editors
-
-  - **Arduino IDE**
-  - **arduino-cli** a scriptable command line tool for managing arduino boards and libraries
-  - **typedown**: a markdown editor/viewer that you will use to view lab instructions
-
-
-    - **notepad++**: a useful text editor
-
-- Verify and run `update_arduino.bat` which updates the Arduino IDE/environment using the `arduino-cli` tool
-
-  - updates Arduino environment
-
-  - installs drivers for newer SAMD-based Arduino boards such as Arduino MKR Zero
-
-
-
-
-# Before each lab
-
-- Pull latest changes from course repository
-  - Right click the course folder (or any location within the course folder). 
-  - Git Sync -> Pull
-- Update Arduino environment using `install_libraries.bat` found in that lab's folder
-
+lab_02_camera_payload/ArduCAM_Host/V2.0_Windows/ArduCAM_Host_V2.exe
