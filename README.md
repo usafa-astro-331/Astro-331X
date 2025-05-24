@@ -36,5 +36,32 @@ In general, each day will cover
 | spacecraft overview, <br>electrical system | attitude sensors | attitude actuators | communication, <br>group projects | group projects |
 
 
+Labs
 
+Day 1
+- voltage divider/potentiometer, measure solar cell voltage with analog-in pin and voltage divider
+	- !! make lab 1
+- can the solar panel power the spacecraft? 
+	- 50 mA/250 mW
+	- measure solar panel output with INA219 current sensor
+	- [README](lab_01_electrical_power/README.md)
+		- series/parallel--can it power?
+
+Day 2
+- [lab_03_communication/README.md](./lab_03_communication/README.md)
+
+Day 3
+- attitude determination
+	- !! modify these lab activities from [lab_04a_attitude_determination/README.md](lab_04a_attitude_determination/README.md)
+	- sun sensors
+	- magnetometers
+
+Day 4
+- attitude actuation
+- !! modify from [lab_04b_attitude_control/README.md](lab_04b_attitude_control/README.md) or  [lab_04c_attitude_control/README.md](lab_04c_attitude_control/README.md) 
+	
+
+Day 5
+- remote sensing [lab_02_camera_payload/README.md](lab_02_camera_payload/README.md)
+- 
 

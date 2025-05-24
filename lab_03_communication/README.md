@@ -1,3 +1,10 @@
+Change:
+- program radio channels (etc.) manually, instead of having Arduino program half on startup
+- investigate (serial plotter? serial monitor?) effect of antenna orientation
+- use big antennas?
+- predict RSSI at distances
+- measure
+
 # Lab 3: communication
 
 In this lab you will build FlatSAT's communication system including the onboard radio, antenna, and ground station. You will test communication and measure signal strength at multiple link distances to characterize the link budget and ensure FlatSAT has sufficient link margin to communicate from orbit. 
@@ -16,35 +23,26 @@ prelab report instructions: [https://www.overleaf.com/read/qksywqwkjcqb#3d1ec1](
 
 ## hardware
 
-- FlatSAT
-  
-  - components from previous labs
-  - XBee radio with integral PCB antenna
-    - on Explorer adapter board
-  - laptop for USB power
+FlatSAT
+- components from previous labs
+- XBee radio with RP-SMA RF connector antenna
+	- on Explorer adapter board
+- antenna
+- laptop for USB power
 
-- ground station
-  
-  - laptop with serial terminal (Tera Term)
-  - XBee radio with RP-SMA RF connector
-    - on USB Explorer adapter board
-  - 2x antenna (2 different lengths)
-
+ground station
+- laptop with serial terminal (PuTTY)
+- XBee radio with RP-SMA RF connector
+	- on USB Explorer adapter board
+- 2x antenna (2 different lengths)
 - LED and 220 Ω resistor
 
 ## software
 
 - Arduino IDE
-
 - Arduino SAMD drivers (already installed)
-
-- `Tera Term` serial terminal program
-  
-  - install if necessary: website or command line
-    - [https://github.com/TeraTermProject/teraterm/releases](https://github.com/TeraTermProject/teraterm/releases)
-    - `winget install teratermproject.teraterm`
-
-- `lab_03_communication.ino`
+- PuTTY (serial terminal program)
+- [lab_03_communication](lab_03_communication.ino)
 
 ## lab report
 

@@ -39,7 +39,7 @@ If you have not already completed lab_00_metrology, measure your solar panel's o
 ## software
 
 - Arduino IDE
-- `lab_01_electrical_power.ino`
+- [lab_01_electrical_power](lab_01_electrical_power.ino)
 - Arduino libraries (install using Arduino library manager)
   - `Adafruit INA219`
 
