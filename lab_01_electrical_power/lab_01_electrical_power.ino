@@ -51,7 +51,7 @@ void setup() {
   Serial.println("card initialized.");
   Serial1.println("card initialized.");
      
-                File dataFile = SD.open("iv_curve.tsv", FILE_WRITE);
+                File dataFile = SD.open("iv_curve.csv", FILE_WRITE);
               // if the file is available, write to it:
               if (dataFile) {
                 dataFile.println("time (ms), current (mA), voltage (V)");
@@ -103,8 +103,10 @@ if (averaging_index >= num_samples){
 
   present = millis(); 
   if (present >= due){
-    String write_line = "time:";
-    write_line += present; 
+    String serial_line = "time:";
+		String SD_line = "";
+    serial_line += present; 
+		SD_line += present; 
     
     // INA219
     float current = 0; 
@@ -116,17 +118,20 @@ if (averaging_index >= num_samples){
     
     current = current / float(num_samples); 
     voltage = voltage / float(num_samples);
-    write_line += "\t"; 
-		write_line += ", current:";
-		write_line += current; 
-    write_line += "\t"; 
-		write_line += ", voltage:";
-		write_line += voltage;
+    serial_line += ", current:";
+		SD_line += ", ";
+		serial_line += current; 
+		SD_line += current; 
+		
+    serial_line += ", voltage:";
+		SD_line += ", ";
+		serial_line += voltage;
+		SD_line += voltage; 
     
     File dataFile = SD.open("iv_curve.tsv", FILE_WRITE);
               // if the file is available, write to it:
               if (dataFile) {
-                dataFile.println(write_line);
+                dataFile.println(SD_line);
                 dataFile.close();
                 // print to the serial port too:
                 
@@ -137,8 +142,8 @@ if (averaging_index >= num_samples){
 				Serial1.println("error opening datalog.txt");
               } // end if dataFile
 
-	Serial.println(write_line);
-	Serial1.println(write_line);
+	Serial.println(serial_line);
+	Serial1.println(serial_line);
 
     due += interval; 
     

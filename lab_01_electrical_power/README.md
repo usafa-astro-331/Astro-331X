@@ -65,14 +65,9 @@ Connect components according to this schematic.
 
 ![](sources/electrical_schematic.svg)
 
-Ensure all grounds/ground rails are connected. 
+**Ensure all grounds/ground rails are connected.** 
 
-Connect the current sensor using I2C. If using a QWIIC cable: 
-
-- Black = GND
-- Red = 3.3V
-- Blue = SDA
-- Yellow = SCL
+Connect the current sensor using I2C. If using a QWIIC cable, see wire color assignments at the start of the arduino file. 
 
 ### prepare microSD card
 
