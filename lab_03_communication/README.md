@@ -7,27 +7,26 @@ Change:
 
 # Lab 3: communication
 
-In this lab you will build FlatSAT's communication system including the onboard radio, antenna, and ground station. You will test communication and measure signal strength at multiple link distances to characterize the link budget and ensure FlatSAT has sufficient link margin to communicate from orbit. 
+In this lab you will build FlatSAT's communication system including the onboard radio and ground station with dipole antenna. You will test communication and measure signal strength at multiple link distances to characterize the link budget and ensure FlatSAT has sufficient link margin to communicate from orbit. 
 
 In this lab one laptop will serve as FlatSAT's ground station. The ground station computer will send commands to the spacecraft over an XBee serial link. 
 
-One additional laptop is required to power FlatSAT. 
+One additional laptop or power supply is required to power FlatSAT. 
 
-prelab report instructions: [https://www.overleaf.com/read/qksywqwkjcqb#3d1ec1](https://www.overleaf.com/read/qksywqwkjcqb#3d1ec1)
+Predict communication system performance using the prelab report instructions: [https://www.overleaf.com/read/qksywqwkjcqb#3d1ec1](https://www.overleaf.com/read/qksywqwkjcqb#3d1ec1)
 
 ## equipment
 
 - 2 laptops (one only provides power to FlatSAT)
-- micro USB cable
-- ruler and measuring tape
+- USB cables
+- measuring tape
 
 ## hardware
 
 FlatSAT
 - components from previous labs
-- XBee radio with RP-SMA RF connector antenna
+- XBee radio
 	- on Explorer adapter board
-- antenna
 - laptop for USB power
 
 ground station
@@ -43,10 +42,6 @@ ground station
 - Arduino SAMD drivers (already installed)
 - PuTTY (serial terminal program)
 - [lab_03_communication](lab_03_communication.ino)
-
-## lab report
-
-instructions: https://www.overleaf.com/read/qksywqwkjcqb 
 
 ## overview
 
@@ -66,8 +61,6 @@ graph LR;
 
 After receiving a command, FlatSAT will produce a response and return it to the ground station using the same link in reverse. 
 
-The radios need to be programmed with compatible parameters (channel, etc.) before they can communicate. In this lab the ground station radio is programmed once using AT commands sent from the ground station serial terminal. You will modify your Arduino (once) code so that each time FlatSAT reboots it will program the radio. 
-
 Each XBee radio maintains a record of the signal strength of the last message it received. An RSSI query from the ground station involves the following steps:
 
 - query message from ground station via XBee to FlatSAT
@@ -77,50 +70,24 @@ Each XBee radio maintains a record of the signal strength of the last message it
 - Arduino converts response to ASCII decimal format
 - Arduino sends RSSI string via XBee to ground station
 
-## setup
-
-- connect XBee radio to FlatSAT
-  
-  - as listed in `xbee_pins.h`
-
-- Add LED and 220 Ω resistor 
-  
-  - as listed in `LED_pins.cpp`
-  - LEDs are directional—short leg of LED connects to ground through resistor
-  - LEDs will burn out without a resistor
-
-<img src="../../fritzing_diagrams/03_communication_bb.svg" alt="breadboard"  />
-
-### XBee breakout
-
-The XBee radio communicates with Arduino using serial communication. Serial communication uses two wires: transmit and receive. 
-
-![XBee_explorer](sources/XBee_explorer.png)
+Both radios will need to be programmed with compatible parameters (channel, etc.) before they can communicate. 
 
 ## Pair radios
 
-Pair your radios. Your radios must be configured with matching parameters. 
-
-You will configure your radios one at a time. 
+Pair your radios. Your radios must be configured with matching parameters. Complete the rest of this section twice--once for each radio. 
 
 1. Connect the XBee breakout board to your computer via USB
+2. Open PuTTTy serial terminal: ../computer_environment/PuTTYPortable/PuTTYPortable.exe
+3. PuTTY settings ![putty settings](sources/PuTTYPortable.png)
+	- Select 'XBee', hit load
+	- Select 'Serial'
+	- Change 'COM#' to the correct number
+		- (look at device list in Arduino IDE to determine radio's COM number)
+4. Open
 
-2. change terminal settings
-- Setup -> Terminal
-  - New-line: Receive: Auto
-  - Local Echo: Yes
-  - OK
-- if necessary, configure the serial port
-  - speed: 9600
-  - data: 8 bit
-  - parity: none
-  - stop bits: 1 bit
-  - flow control: none
-3. connect to the correct serial port (COMX) in Tera Term
-   
-   - you can view the COM port number in Arduino IDE or in Device Manager
 
-To configure a radio you must enter AT command mode. When entering data into a serial terminal, the backspace key counts as a key and does not delete the previous keystroke. If you make a mistake, wait and try again. 
+To configure a radio you must enter AT command mode. When entering data into a serial terminal, **DO NOT TYPE BACKSPACE**. The backspace key counts as a key and does not delete the previous keystroke. If you make a mistake, wait and try again. 
+See image below for an example. 
 
 To enter command mode: 
 
@@ -132,9 +99,9 @@ To enter command mode:
 
 The local radio will reply `OK`. You are now in command mode. Command mode will timeout after 10 seconds of inactivity. 
 
-4. enter command mode
+1. enter command mode
 
-5. enter relevant configuration commands (see table below). 
+2. enter relevant configuration commands (see table below). 
    
    - NOTE: **DO** press `Enter` after entering an AT command
 
@@ -146,11 +113,33 @@ The local radio will reply `OK`. You are now in command mode. Command mode will 
 | radio address                        | ATMY       | 1              | 0       | ATDL radio 1 = ATMY radio 2                                                                                                                                                                                                           |
 | baud rate                            | ATBD       | 3              | 3       | 3 = 9600 bps<br/>see [documentation ](https://www.digi.com/resources/documentation/Digidocs/90001477/reference/r_cmd_bd_xtend.htm?TocPath=AT%20commands%7CSerial%20interfacing%20commands%7C_____1) for other data rates if necessary |
 
-6. `ATWR` save current configuration to radio memory
+3. `ATWR` save current configuration to radio memory
 
-7. `ATCN` to immediately exit command mode (or wait 10 seconds). 
+4. `ATCN` to immediately exit command mode (or wait 10 seconds). 
 
-Switch radios (can use the same explorer breakout board) and repeat steps 4 through 7. 
+![AT commands](./sources/AT_commands.png)
+
+Repeat for the other radio. 
+
+
+## setup
+
+Disconnect spacecraft radio from USB and connect to FlatSAT
+  - see connections in `xbee_pins.h`
+
+Add LED and resistor
+  - as listed in `LED_pins.cpp`
+  - LEDs are directional—long leg of LED is positive (3.3 V)
+  - LEDs will burn out without a resistor
+
+<img src="../../fritzing_diagrams/03_communication_bb.svg" alt="breadboard"  />
+
+### XBee breakout
+
+The XBee radio communicates with Arduino using serial communication. Serial communication uses two wires: transmit and receive. 
+
+![XBee_explorer](sources/XBee_explorer.png)
+
 
 ## Setup the ground station
 

@@ -2,6 +2,6 @@
 #define GLOBAL_VAR_H
 #include <Arduino.h>
 
-extern const int LED_pin;
+// extern const int LED_pin;
 
 #endif
