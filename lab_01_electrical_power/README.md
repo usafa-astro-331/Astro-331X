@@ -8,7 +8,12 @@ In your post-lab analysis, you will compare your prelab performance predictions 
 
 # Prelab activities
 
-If you have not already completed lab_00_metrology, measure your solar panel's output limits (maximum current and voltage in series and in parallel). 
+Predict solar panel performance (max power) based on the specifications provided in the prelab report instructions https://www.overleaf.com/read/fmsknsscphdd. Sketch expected IV curves for
+- single cell
+- 4 parallel cells
+- 4 series cells
+
+Measure your solar panel's output (short-circuit current and open-circuit voltage) with 4 cells in series and in parallel. 
 
 |          | voltage (V) | current (mA) |
 | -------- | ----------- | ------------ |
@@ -21,6 +26,8 @@ If you have not already completed lab_00_metrology, measure your solar panel's o
   - existing components
   - micro SD card
   - solar array
+  - INA219 current sensor
+  - potentiometer
 
 ## equipment
 
@@ -29,12 +36,9 @@ If you have not already completed lab_00_metrology, measure your solar panel's o
 - Micro USB cable
 - USB micro SD card reader
 - wires
+- QWIIC cable
 - luxmeter
   ![luxmeter](sources/luxmeter.png)
-
-## documentation
-
-- `lab 1 analysis.pdf`, also available at https://www.overleaf.com/read/fmsknsscphdd
 
 ## software
 
@@ -44,8 +48,6 @@ If you have not already completed lab_00_metrology, measure your solar panel's o
   - `Adafruit INA219`
 
 ## setup
-
-Read `lab 1 analysis.pdf`. 
 
 Add required components to FlatSAT. 
 
@@ -91,11 +93,11 @@ Upload your code.
 
 Open serial monitor (tools -> serial plotter).
 
-Slowly turn the potentiometer and watch the current and voltage change in the serial plotter. (Deselect ‘value 1’, which is time.)
+Slowly turn the potentiometer and watch the current and voltage change in the serial plotter. (Deselect ‘value 1’, which is time since boot.)
 
 ## data collection scheme
 
-FlatSAT saves current and voltage to `iv_curve.tsv` every 200 ms. On each powerup it writes a legend and then begins logging data. Subsequent powerups will again write a legend and add more data to the file. The legend message can be used to separate test runs. It will be obvious which run is series vs parallel. 
+FlatSAT saves current and voltage to `iv_curve.csv` every 200 ms. On each powerup it writes a legend and begins logging data. Subsequent powerups will again write a legend and add more data to the file. The legend message can be used to separate test runs. It will be obvious which run is series vs parallel. 
 
 ## collect solar array performance data outside
 

@@ -128,7 +128,7 @@ if (averaging_index >= num_samples){
 		serial_line += voltage;
 		SD_line += voltage; 
     
-    File dataFile = SD.open("iv_curve.tsv", FILE_WRITE);
+    File dataFile = SD.open("iv_curve.csv", FILE_WRITE);
               // if the file is available, write to it:
               if (dataFile) {
                 dataFile.println(SD_line);
