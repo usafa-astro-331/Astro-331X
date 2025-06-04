@@ -1,3 +1,4 @@
+
 Change:
 - program radio channels (etc.) manually, instead of having Arduino program half on startup
 - investigate (serial plotter? serial monitor?) effect of antenna orientation
@@ -105,13 +106,21 @@ The local radio will reply `OK`. You are now in command mode. Command mode will 
    
    - NOTE: **DO** press `Enter` after entering an AT command
 
-|                                      | AT command | ground station | FlatSAT | note                                                                                                                                                                                                                                  |
-| ------------------------------------ | ---------- | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| network ID                           | ATID       | match          | match   | 4-digit number between 0000 and 9999---deconflict with other groups                                                                                                                                                                   |
-| destination address (of other radio) | ATDH       | 0              | 0       |                                                                                                                                                                                                                                       |
-|                                      | ATDL       | 0              | 1       |                                                                                                                                                                                                                                       |
-| radio address                        | ATMY       | 1              | 0       | ATDL radio 1 = ATMY radio 2                                                                                                                                                                                                           |
-| baud rate                            | ATBD       | 3              | 3       | 3 = 9600 bps<br/>see [documentation ](https://www.digi.com/resources/documentation/Digidocs/90001477/reference/r_cmd_bd_xtend.htm?TocPath=AT%20commands%7CSerial%20interfacing%20commands%7C_____1) for other data rates if necessary |
+|                                      | AT command | ground station | FlatSAT | note                                                                |
+| ------------------------------------ | ---------- | -------------- | ------- | ------------------------------------------------------------------- |
+| network ID                           | ATID       | match          | match   | 4-digit number between 0000 and 9999---deconflict with other groups |
+| destination address (of other radio) | ATDH       | 0              | 0       |                                                                     |
+|                                      | ATDL       | 0              | 1       |                                                                     |
+| radio address                        | ATMY       | 1              | 0       | ATDL first radio = ATMY second radio                                |
+
+
+Check the following (enter command without a value). They should already have the default values, but set them if necessary. 
+
+|           | AT command | value | note         |
+| --------- | ---------- | ----- | ------------ |
+| channel   | ATCH       | C     |              |
+| baud rate | ATBD       | 3     | 3 = 9600 bps |
+
 
 3. `ATWR` save current configuration to radio memory
 
@@ -131,8 +140,6 @@ Add LED and resistor
   - as listed in `LED_pins.cpp`
   - LEDs are directional—long leg of LED is positive (3.3 V)
   - LEDs will burn out without a resistor
-
-<img src="../../fritzing_diagrams/03_communication_bb.svg" alt="breadboard"  />
 
 ### XBee breakout
 
@@ -198,37 +205,3 @@ Finally, see how far FlatSAT can communicate. If you go outside, call your teamm
 - Remove the ESD wrist straps and replace them in the bag at your lab station.
 - Replace all items at your lab station the way you found them. 
 - Have your instructor check off your lab station before you depart.
-
-## End of course cleanup
-
-NOTE: If you change xbee baud rate or channel during this class, you must remember to return it to default configuration at the end of the class. 
-
-To enter command mode:
-
-- type nothing for 1 second
-
-- type `+++` (do not press Enter)
-
-- type nothing for 1 second
-
-The local radio will reply `OK`. You are now in command mode. Command mode will timeout after 10 seconds of inactivity.
-
-4. enter command mode
-
-5. enter relevant configuration commands (see table below).
-   
-   - NOTE: **DO** press `Enter` after entering an AT command
-
-|                                      | AT command | ground station | FlatSAT | note                                                                                                                                                                                                                                 |
-| ------------------------------------ | ---------- | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| network ID                           | ATID       | match          | match   | 4-digit number between 0000 and 9999---deconflict with other groups                                                                                                                                                                  |
-| destination address (of other radio) | ATDH       | 0              | 0       |                                                                                                                                                                                                                                      |
-|                                      | ATDL       | 0              | 1       |                                                                                                                                                                                                                                      |
-| radio address                        | ATMY       | 1              | 0       | ATDL radio 1 = ATMY radio 2                                                                                                                                                                                                          |
-| baud rate                            | ATBD       | 3              | 3       | 3 = 9600 bps<br>see [documentation](https://www.digi.com/resources/documentation/Digidocs/90001477/reference/r_cmd_bd_xtend.htm?TocPath=AT%20commands%7CSerial%20interfacing%20commands%7C_____1)  for other data rates if necessary |
-
-6. `ATWR` save current configuration to radio memory
-
-7. `ATCN` to immediately exit command mode (or wait 10 seconds).
-
-Switch radios (can use the same explorer breakout board) and repeat steps 4 through 7.

@@ -26,18 +26,24 @@ void get_command_from_pc() {
         Serial1.print(" help \n");
         Serial1.print("2 get RSSI \n");
         Serial1.print("3 toggle LED \n\n");
-        break;
+        break; // end of case 1
 
       case 2:
         get_sat_rssi();
-        break;
+        break; // end of case 2
 
         case 3: 
 
-        digitalWrite(LED_pin, !(digitalRead(LED_pin)));
-        
-        if (digitalRead(LED_pin)){Serial1.println(" LED on");}
-        else {Serial1.println(" LED off");}
+        if (digitalRead(LED_pin) == HIGH){
+          digitalWrite(LED_pin, LOW);
+          Serial1.println(" LED off");
+          }
+        else {
+          digitalWrite(LED_pin, HIGH);
+          Serial1.println(" LED on");
+          }
+
+        break; // end of case 3 
 
     }
   }
