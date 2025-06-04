@@ -2,39 +2,31 @@
 
 In this lab you will test FlatSAT's Arducam payload to determine if FlatSAT's imaging system will meet its resolution requirement from a 500 km orbit. You will record images of a resolution chart to determine the best resolution FlatSAT can achieve at distances ranging from 0.5 m to 5 m. You will extrapolate this to a 500 km distance and compare performance to your prelab predictions.
 
+Predict camera performance before the lab: 
+https://www.overleaf.com/read/kfwyrpfyjkmy#965d6f
+
 ## software
 
 - Arduino IDE
-- Arducam Host V2
-- Arduino libraries (install by running `install_libraries.bat`)
+- Arducam Host V2 (./ArduCAM_Host_V2.0_Windows/ArduCAM_Host_V2.exe)
+- Arduino libraries
   - ArduCAM
-- `lab_02_camera_payload.ino`
+- lab_02_camera_payload.ino
 
 ## hardware
 
-* ESD-safe grounding straps
-
 * FlatSAT
-  
-  * INA219 current sensor
-
-* ArduCAM-M-2MP
-
+  * ArduCAM-M-2MP
 * resolution chart
-
-* metric ruler
-
-* wires
+* tape measure
+* jumper wires
 
 ## setup
-
-Whenever you handle the Arduino or any microcontroller electronics, be sure that you have a grounding strap on, to prevent unintentional electro-static discharge (ESD). The strap should have contact with your skin and the banana plug end should plug into one of the grounding holes (indicated in red) on the front of your lab bench. There are two grounding plugs at each lab station.
 
 In this lab FlatSAT will draw power from its USB connection to the computer. 
 
 - Connect your camera payload to FlatSAT
   
-  **Note**: ArduCAM requires 5V supply
 
 <img src="../sources/fritzing/331X.svg" alt="solar_bb" style="zoom:200%;" />
 
@@ -45,21 +37,18 @@ ArduCAM-M-2MP communicates with Arduino using both I2C and SPI. The Arduino sket
 Note the orientation of the connections in the diagram: the camera board should be vertical with the sensor looking over the LCD. 
 
 Connect power
-
-- VCC (5 V)
+- VCC (3.3 V)
 - ground (any ground is fine)
 
-Connect I2C comm lines--these are already in place from lab 1
-
+Connect I2C comm lines
 - SDA
 - SCL
 
 Connect SPI comm lines
-
 - SCK (clock)
 - CIPO (controller in/peripheral out)*
 - COPI (controller out/peripheral in)*
-- CS (chip select)
+- CS (chip select)--connect to pin 7
 
 **\*Note**: some components and documentation use master/slave terminology (MISO/MOSI), and some use controller/peripheral (CIPO/COPI). MISO = CIPO, MOSI = COPI. 
 
@@ -77,15 +66,13 @@ Select the correct board (Arduino MKRZERO) and port.
 
 Upload your code. 
 
-Open the serial monitor. 
-
 ### Configure ArduCAM Host GUI
 
 Create a folder on the desktop with your group name. 
 
 Open `ArduCAM_Host_V2.exe` from the `ArduCAM_Host_V2.0_Windows` folder. 
 
-<img src="sources\ArduCAM_Host screenshot.png" alt="ArduCAM_Host screenshot" style="zoom:100%;" />
+<img src="sources/ArduCAM_Host screenshot.png" alt="ArduCAM_Host screenshot" style="zoom:100%;" />
 
 Set the following options:
 
@@ -104,7 +91,7 @@ Take and save a photo of your team using ArduCAM.
 
 ### Measure and prepare resolution chart
 
-<img src="sources\ISO_12233-reschart letter.svg" alt="ISO_12233-reschart" style="zoom: 33%;" />
+<img src="sources/ISO_12233-reschart letter.svg" alt="ISO_12233-reschart" style="zoom: 33%;" />
 
 - There are two resolution charts printed at your lab station. They are also available electronically with these lab instructions. 
   
@@ -119,7 +106,7 @@ Take and save a photo of your team using ArduCAM.
 
 - Repeat these steps for the large resolution chart. 
 
-<img src="sources\ISO_12233-reschart big.svg" alt="ISO_12233-reschart" style="zoom: 33%;" />
+<img src="sources/ISO_12233-reschart big.svg" alt="ISO_12233-reschart" style="zoom: 33%;" />
 
 ### Position the camera and resolution chart
 
