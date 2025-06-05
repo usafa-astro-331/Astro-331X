@@ -80,13 +80,14 @@ void setup() {
     dataFile.print(write_line);
 
     Serial.print(write_line);
-	Serial1.print(write_line);
+	  Serial1.print(write_line);
 
     dataFile.close();
   }
   // if the file isn't open, pop up an error:
-  else { Serial.println("error opening log file"); 
-		 Serial1.println("error opening log file"); 
+  else { 
+    Serial.println("error opening log file"); 
+	  Serial1.println("error opening log file"); 
   }
 
 }  // end function setup
@@ -168,60 +169,64 @@ void loop() {
     sunny_reading = analogRead(sunny_pin);    
     
     // output raw sun sensor data
-	// write_line += "\t"; //tab to separate fields
-	// 	write_line += "sunpx:"; 
-	// 	write_line += sunpx_reading; 
-  //   write_line += "\t"; //tab to separate fields
-	// 	write_line += "sunpy:"; 
-	// 	write_line += sunpy_reading; 
-  //   write_line += "\t"; //tab to separate fields
-	// 	write_line += "sunnx:"; 
-	// 	write_line += sunnx_reading; 
-  //   write_line += "\t"; //tab to separate fields
-	// 	write_line += "sunny:"; 
-	// 	write_line += sunny_reading; 
-
-    // find sun direction
-    sun_x = sunpx_reading-sunnx_reading ; // you fill in here--remember to end line with ;
-    sun_y = sunpy_reading-sunny_reading ; // you fill in here--remember to end line with ;
-    sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG ; 
-			// *1.0 converts from int to float
-			// + 180 changes range to 0--360; 
+	  write_line += "\t"; //tab to separate fields
+		write_line += "sunpx:"; 
+		write_line += sunpx_reading; 
     write_line += "\t"; //tab to separate fields
-		write_line += "sun:"; 
-    write_line += sun_direction; 
-
-
-// magnetometer range values used for calibration
-float x_max = 80.0; 
-float x_min = 20.0; 
-float y_max = 77.0;
-float y_min = 28.0; 
-
-float x_range = (x_max - x_min)/2; 
-float x_bias = x_max-x_range; 
-float y_range = (y_max - y_min)/2; 
-float y_bias = y_max-y_range; 
-
-float magx, magy, heading; 
-    magx =  (myICM.magX() - x_bias) /x_range; 
-    magy =  (myICM.magY() - y_bias) /y_range; 
-    float Heading = atan2(magy, -magx) +PI; 
-
+		write_line += "sunpy:"; 
+		write_line += sunpy_reading; 
     write_line += "\t"; //tab to separate fields
-		write_line += "magx:"; 
-    write_line += magx; 
-
+		write_line += "sunnx:"; 
+		write_line += sunnx_reading; 
     write_line += "\t"; //tab to separate fields
-		write_line += "magy:"; 
-    write_line += magy; 
+		write_line += "sunny:"; 
+		write_line += sunny_reading; 
 
-    write_line += "\t"; //tab to separate fields
-		write_line += "mag_head:"; 
-    write_line += Heading; 
-    
+    // // find sun direction
+    // sun_x = ... ; // you fill in here--remember to end line with ;
+    // sun_y = ... ; // you fill in here--remember to end line with ;
+    // sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG + 180; 
+		// 	/*NOTE: 
+    //  *1.0 converts from int to float
+		// 	+ 180 changes range to 0--360; 
+    //  */
+    //
+    // write_line += "\t"; //tab to separate fields
+		// write_line += "sun:"; 
+    // write_line += sun_direction; 
+
+// MAGNETOMETER CALIBRATION
+// // magnetometer range values used for calibration
+// float x_max = 80.0; 
+// float x_min = 20.0; 
+// float y_max = 77.0;
+// float y_min = 28.0; 
+
+// float x_range = (x_max - x_min)/2; 
+// float x_bias = x_max-x_range; 
+// float y_range = (y_max - y_min)/2; 
+// float y_bias = y_max-y_range; 
+
+// float magx, magy, heading; 
+//     magx =  (myICM.magX() - x_bias) /x_range; 
+//     magy =  (myICM.magY() - y_bias) /y_range; 
+//     float Heading = atan2(magy, -magx) +PI; 
+
+//     write_line += "\t"; //tab to separate fields
+// 		write_line += "magx:"; 
+//     write_line += magx; 
+
+//     write_line += "\t"; //tab to separate fields
+// 		write_line += "magy:"; 
+//     write_line += magy; 
+
+//     write_line += "\t"; //tab to separate fields
+// 		write_line += "mag_head:"; 
+//     write_line += Heading; 
+
+  // OUTPUT DATA  
     Serial.println(write_line);
-	Serial1.println(write_line);
+	  Serial1.println(write_line);
 
     File dataFile = SD.open("04a_att.tsv", FILE_WRITE);
     // if the file is available, write to it:

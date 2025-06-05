@@ -2,9 +2,6 @@
 
 In this lab you will build and test FlatSAT's attitude determination system including sun sensors, a magnetometer, and a rate gyroscope. 
 
-Prelab report instructions: 
-[https://www.overleaf.com/read/prdzpknpdtgf](https://www.overleaf.com/read/prdzpknpdtgf)
-
 If I update the code in time, you will save attitude data to FlatSAT’s SD card storage and stream it over your XBee radio link. 
 
 ## equipment
@@ -38,7 +35,7 @@ If I update the code in time, you will save attitude data to FlatSAT’s SD card
   
   - SparkFun 9DoF IMU
 
-- `lab_04a_attitude_determination.ino`
+- lab_04a_attitude_determination.ino
 
 ## setup
 
@@ -48,21 +45,20 @@ Copy the setup below, but **do not place the 3rd (middle) cell into the battery 
 
 And
 
-**DO not connect the battery’s 12 V output at any time during this lab. Do not even place a wire in the wago connector. **
+**DO not connect the battery’s 12 V output at any time during this lab.**
 
 **Note:** the connection between the Arduino and the 5V rail has moved from previous labs. It’s now connected to Vin. 
 
-![attitude_bb](../../fritzing_diagrams/04_attitude_bb.svg)
 
 - Add the red 9 DOF IMU (red square) to your FlatSAT as in the diagram.
   - use a QWIIC cable to connect via the current sensor
-- Add 4 photocell voltage dividers. The photocell is R1. 
-  - ![](../lab_00_metrology/sources/Resistive_divider2.svg)
-  - Vin: 3 V
-  - Ground: ground
-  - Vout: see `sun_sensor_pins.h`
-    - use pinouts defined for Arduino MKR Zero
-    - align +x (px), +y (py), -x (nx), -y (ny) with the IMU’s magnetometer coordinate frame
+- Add 4 sun sensors (2 each in 2 corners) facing in all 4 directions. Each sun sensor will be a voltage divider as shown below. The photocell is R1. 
+   ![](../lab_00_metrology/sources/Resistive_divider2.svg)
+	  - Vin: 3 V
+	  - Ground: ground
+	  - Vout: see `sun_sensor_pins.h`
+	    - use pinouts defined for Arduino MKR Zero
+	    - align +x (px), +y (py), -x (nx), -y (ny) with the IMU’s magnetometer coordinate frame
 
 ## sensor checkout
 
@@ -113,7 +109,7 @@ Upload your modified code and test with a flashlight.
     // write_line += sun_direction; 
 ```
 
-## attitude determination
+## sun angle measurement
 
 Using a string loop, hang the motor platform from the hook above your workstation. Place FlatSAT and the battery holder on the platform and secure both with tape. Insert all battery cells and connect the BEC’s 5V output to FlatSAT’s Vin pin. 
 
@@ -124,6 +120,10 @@ Spin FlatSAT gently back and forth several times.
 Let FlatSAT rotate slowly through at least 3 complete revolutions. 
 
 Spin FlatSAT quickly (at least 1 RPM) through at least 3 complete revolutions. 
+
+## magnetic heading measurement
+
+Calibrate your 
 
 ## Lab station cleanup
 

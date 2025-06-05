@@ -7,7 +7,6 @@ README.pdf
 
 /.obsidian/workspace.json
 /.obsidian/graph.json
-/plugins/obsidian-git/manifest.json
-/.obsidian/plugins
+/.obsidian/plugins/*
 /computer_environment/PuTTYPortable/Data/settings/PuTTYPortableSettings.ini
 /.obsidian/community-plugins.json
