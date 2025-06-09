@@ -185,7 +185,7 @@ void loop() {
     // // find sun direction
     // sun_x = ... ; // you fill in here--remember to end line with ;
     // sun_y = ... ; // you fill in here--remember to end line with ;
-    // sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG + 180; 
+    // sun_direction = (atan2(-sun_y*1.0, -sun_x*1.0) * RAD_TO_DEG +180.0); 
 		// 	/*NOTE: 
     //  *1.0 converts from int to float
 		// 	+ 180 changes range to 0--360; 
@@ -194,35 +194,6 @@ void loop() {
     // write_line += "\t"; //tab to separate fields
 		// write_line += "sun:"; 
     // write_line += sun_direction; 
-
-// MAGNETOMETER CALIBRATION
-// // magnetometer range values used for calibration
-// float x_max = 80.0; 
-// float x_min = 20.0; 
-// float y_max = 77.0;
-// float y_min = 28.0; 
-
-// float x_range = (x_max - x_min)/2; 
-// float x_bias = x_max-x_range; 
-// float y_range = (y_max - y_min)/2; 
-// float y_bias = y_max-y_range; 
-
-// float magx, magy, heading; 
-//     magx =  (myICM.magX() - x_bias) /x_range; 
-//     magy =  (myICM.magY() - y_bias) /y_range; 
-//     float Heading = atan2(magy, -magx) +PI; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "magx:"; 
-//     write_line += magx; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "magy:"; 
-//     write_line += magy; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "mag_head:"; 
-//     write_line += Heading; 
 
   // OUTPUT DATA  
     Serial.println(write_line);
