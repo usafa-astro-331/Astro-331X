@@ -188,7 +188,7 @@ void loop() {
     // // (highlight them, CTRL-/)
     // sun_x = ... ; // you fill in here--remember to end line with ;
     // sun_y = ... ; // you fill in here--remember to end line with ;
-    // sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG + 180; 
+    // sun_direction = (atan2(-sun_y*1.0, -sun_x*1.0) * RAD_TO_DEG +180.0); 
 		// 	/*NOTE: 
     //  *1.0 converts from int to float
 		// 	+ 180 changes range to 0--360; 
@@ -197,7 +197,6 @@ void loop() {
     // serial_line += "\t"; //tab to separate fields
 		// serial_line += "sun:"; 
     // serial_line += sun_direction; 
-
 
 
   // OUTPUT DATA  
