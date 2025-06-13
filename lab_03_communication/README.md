@@ -29,13 +29,13 @@ FlatSAT
 - XBee radio
 	- on Explorer adapter board
 - laptop for USB power
+- LED and 220 Ω resistor
 
 ground station
 - laptop with serial terminal (PuTTY)
 - XBee radio with RP-SMA RF connector
 	- on USB Explorer adapter board
 - 2x antenna (2 different lengths)
-- LED and 220 Ω resistor
 
 ## software
 
@@ -114,7 +114,7 @@ The local radio will reply `OK`. You are now in command mode. Command mode will 
 | radio address                        | ATMY       | 1              | 0       | ATDL first radio = ATMY second radio                                |
 
 
-Check the following (enter command without a value). They should already have the default values, but set them if necessary. 
+Check the following (enter command without a value). They should already have the correct default values, but set them if necessary. 
 
 |           | AT command | value | note         |
 | --------- | ---------- | ----- | ------------ |
