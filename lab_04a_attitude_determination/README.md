@@ -28,37 +28,30 @@ If I update the code in time, you will save attitude data to FlatSAT’s SD card
 ## software
 
 - Arduino IDE
-
 - Arduino SAMD drivers (already installed)
-
 - ensure these Arduino libraries are installed
-  
   - SparkFun 9DoF IMU
-
 - lab_04a_attitude_determination.ino
 
 ## setup
 
-For today’s lab, FlatSAT will be powered by a 12 V lithium ion battery. The (future) motor driver and motor are powered directly from the battery’s 12 V supply. The Arduino itself is powered via a 12 V $\rightarrow$ 5 V BEC (battery eliminator circuit). Everything else is powered by Arduino’s Vcc pin (3.3 V). 
+For some parts of today’s lab, FlatSAT may be powered by a 12 V lithium ion battery. The (future) motor driver and motor are powered directly from the battery’s 12 V supply. The Arduino itself is powered via a 12 V $\rightarrow$ 5 V BEC (battery eliminator circuit) → Vin. Everything else is powered by Arduino’s Vcc pin (3.3 V). 
 
-Copy the setup below, but **do not place the 3rd (middle) cell into the battery holder yet**. 
+**Do not place the 3rd (middle) cell into the battery holder yet**. 
 
 And
 
 **DO not connect the battery’s 12 V output at any time during this lab.**
 
-**Note:** the connection between the Arduino and the 5V rail has moved from previous labs. It’s now connected to Vin. 
 
-
-- Add the red 9 DOF IMU (red square) to your FlatSAT as in the diagram.
+- Add the red 9 DOF IMU (red square) to your FlatSAT 
   - use a QWIIC cable to connect via the current sensor
-- Add 4 sun sensors (2 each in 2 corners) facing in all 4 directions. Each sun sensor will be a voltage divider as shown below. The photocell is R1. 
-   ![](../lab_00_metrology/sources/Resistive_divider2.svg)
-	  - Vin: 3 V
-	  - Ground: ground
-	  - Vout: see `sun_sensor_pins.h`
-	    - use pinouts defined for Arduino MKR Zero
-	    - align +x (px), +y (py), -x (nx), -y (ny) with the IMU’s magnetometer coordinate frame
+- Add coordinate markings to your FlatSAT with a marker or label maker. These markings should be the same as the magnetometer coordinates ('M') on the IMU. 
+- Add 4 sun sensors (2 each in 2 corners) facing in all 4 directions. Each sun sensor will be a voltage divider as shown below.
+  
+   ![](../sources/Resistive_divider2.svg)
+	- Vin: 3.3 V (Vcc); Vout: see `sun_sensor_pins.h`
+	- R1: phototransistor; R2: 10 kΩ
 
 ## sensor checkout
 
@@ -118,19 +111,6 @@ Using a string loop, hang the motor platform from the hook above your workstatio
 Spin FlatSAT gently back and forth several times. 
 
 Let FlatSAT rotate slowly through at least 3 complete revolutions. 
-
-Spin FlatSAT quickly (at least 1 RPM) through at least 3 complete revolutions. 
-
-## magnetic heading measurement
-
-Calibrate your 
-
-## Lab station cleanup
-
-- Transfer saved data to your group's storage location
-- Disconnect devices from FlatSAT and all computers
-- Replace all items at your lab station the way you found them. 
-- Have your instructor check off your lab station before you depart.
 
 ## Post-lab data analysis
 

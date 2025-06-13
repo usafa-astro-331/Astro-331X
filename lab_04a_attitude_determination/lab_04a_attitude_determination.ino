@@ -69,22 +69,18 @@ void setup() {
   File dataFile = SD.open("04a_att.tsv", FILE_WRITE);
   // if the file is available, write to it:
   if (dataFile) {
-    String write_line = ""; 
-    write_line += "units:\n" ;
-    write_line += "  time (ms)\n"; 
-    write_line += "  gyr (dps)\n"; 
-    write_line += "  mag (uT)\n"; 
-    write_line += "  sun detector (count)\n"; 
-    write_line += "  sun angle (deg)\n";
+    String SD_line = ""; 
+    SD_line += "units:\n" ;
+    SD_line += "  time (ms)\n"; 
+    SD_line += "  gyr (dps)\n"; 
+    SD_line += "  mag (uT)\n"; 
+    SD_line += "  sun detector (count)\n"; 
+    SD_line_line += "  sun angle (deg)\n";
 
-    dataFile.print(write_line);
-
-    Serial.print(write_line);
-	  Serial1.print(write_line);
-
+    dataFile.print(SD_line);
     dataFile.close();
   }
-  // if the file isn't open, pop up an error:
+  // if the file isn't open, print an error:
   else { 
     Serial.println("error opening log file"); 
 	  Serial1.println("error opening log file"); 
@@ -102,12 +98,13 @@ int write_interval = 100;  // ms
 
 
 String printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
-  String write_line = "";
+  String output_line = "";
+
   float aval = abs(val);
   if (val < 0) {
-    write_line += "-";
+    output_line += "-";
   } else {
-    write_line += "+";
+    output_line += "+";
   }
   for (uint8_t indi = 0; indi < leading; indi++) {
     uint32_t tenpow = 0;
@@ -118,71 +115,77 @@ String printFormattedFloat(float val, uint8_t leading, uint8_t decimals) {
       tenpow *= 10;
     }
     if (aval < tenpow) {
-      write_line += "0";
+      output_line += "0";
     } else {
       break;
     }
   }
   if (val < 0) {
-    write_line += -val;
-    write_line += decimals;
+    output_line += -val;
+    output_line += decimals;
   } else {
-    write_line += val;
-    write_line += decimals;
+    output_line += val;
+    output_line += decimals;
   }
-  return write_line;
+  return output_line;
 }  //end printformattedfloat()
 
 String printScaledAGMT(ICM_20948_I2C *sensor) {
-  String write_line = "\t"; //tab to separate fields
-	write_line += "gyrz:";
-  write_line += printFormattedFloat(sensor->gyrZ(), 5, 2);
-  write_line += "\t"; //tab to separate fields
+  String serial_line = "\t"; //tab to separate fields
+	serial_line += "gyrz:";
+  serial_line += printFormattedFloat(sensor->gyrZ(), 5, 2);
+  serial_line += "\t"; //tab to separate fields
   
   // align magnetometer coordinates to gyro coordinates
   // magx = gyrx
   // magy = -gyry 
   // magz = -gyrz
-	write_line += "magx:";
-  write_line += printFormattedFloat(sensor->magX(), 5, 2);
-  write_line += "\t"; //tab to separate fields
-	write_line += "magy:";
-  write_line += printFormattedFloat(-(sensor->magY() ), 5, 2);
+	serial_line += "magx:";
+  serial_line += printFormattedFloat(sensor->magX(), 5, 2);
+  serial_line += "\t"; //tab to separate fields
+	serial_line += "magy:";
+  serial_line += printFormattedFloat(-(sensor->magY() ), 5, 2);
 
-  return write_line;
+  return serial_line;
 }
 
 void loop() {
   t = millis();
 
   if (t - last_wrote > write_interval) {
-    String write_line = "t:";
-    write_line += t;
+    String serial_line = "t:";
+    serial_line += t;
 
     myICM.getAGMT();                        // The values are only updated when you call 'getAGMT'
-    write_line += printScaledAGMT(&myICM);  // This function takes into account the scale settings from when the measurement was made to calculate the values with units
+    serial_line += printScaledAGMT(&myICM);  // This function takes into account the scale settings from when the measurement was made to calculate the values with units
 
     // read sun sensors
     sunpx_reading = analogRead(sunpx_pin);
     sunpy_reading = analogRead(sunpy_pin);
     sunnx_reading = analogRead(sunnx_pin);
     sunny_reading = analogRead(sunny_pin);    
-    
-    // output raw sun sensor data
-	  write_line += "\t"; //tab to separate fields
-		write_line += "sunpx:"; 
-		write_line += sunpx_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunpy:"; 
-		write_line += sunpy_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunnx:"; 
-		write_line += sunnx_reading; 
-    write_line += "\t"; //tab to separate fields
-		write_line += "sunny:"; 
-		write_line += sunny_reading; 
 
+
+    // // output raw sun sensor data
+    // // comment out these lines after you find sun angle
+    // // (highlight them, then press CTRL-/)
+	  serial_line += "\t"; //tab to separate fields
+		serial_line += "sunpx:"; 
+		serial_line += sunpx_reading; 
+    serial_line += "\t"; //tab to separate fields
+		serial_line += "sunpy:"; 
+		serial_line += sunpy_reading; 
+    serial_line += "\t"; //tab to separate fields
+		serial_line += "sunnx:"; 
+		serial_line += sunnx_reading; 
+    serial_line += "\t"; //tab to separate fields
+		serial_line += "sunny:"; 
+		serial_line += sunny_reading; 
+
+    
     // // find sun direction
+    // // uncomment these lines to find sund direction
+    // // (highlight them, CTRL-/)
     // sun_x = ... ; // you fill in here--remember to end line with ;
     // sun_y = ... ; // you fill in here--remember to end line with ;
     // sun_direction = atan2(sun_y*1.0, sun_x*1.0) * RAD_TO_DEG + 180; 
@@ -191,47 +194,20 @@ void loop() {
 		// 	+ 180 changes range to 0--360; 
     //  */
     //
-    // write_line += "\t"; //tab to separate fields
-		// write_line += "sun:"; 
-    // write_line += sun_direction; 
+    // serial_line += "\t"; //tab to separate fields
+		// serial_line += "sun:"; 
+    // serial_line += sun_direction; 
 
-// MAGNETOMETER CALIBRATION
-// // magnetometer range values used for calibration
-// float x_max = 80.0; 
-// float x_min = 20.0; 
-// float y_max = 77.0;
-// float y_min = 28.0; 
 
-// float x_range = (x_max - x_min)/2; 
-// float x_bias = x_max-x_range; 
-// float y_range = (y_max - y_min)/2; 
-// float y_bias = y_max-y_range; 
-
-// float magx, magy, heading; 
-//     magx =  (myICM.magX() - x_bias) /x_range; 
-//     magy =  (myICM.magY() - y_bias) /y_range; 
-//     float Heading = atan2(magy, -magx) +PI; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "magx:"; 
-//     write_line += magx; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "magy:"; 
-//     write_line += magy; 
-
-//     write_line += "\t"; //tab to separate fields
-// 		write_line += "mag_head:"; 
-//     write_line += Heading; 
 
   // OUTPUT DATA  
-    Serial.println(write_line);
-	  Serial1.println(write_line);
+    Serial.println(serial_line);
+	  Serial1.println(serial_line);
 
     File dataFile = SD.open("04a_att.tsv", FILE_WRITE);
     // if the file is available, write to it:
     if (dataFile) {
-      dataFile.println(write_line);
+      dataFile.println(serial_line);
       dataFile.close();
 
     }
