@@ -2,7 +2,7 @@
 
 In this lab you will integrate FlatSAT’s attitude control system. You will suspend FlatSAT from a string and change its orientation by varying the speed of the reaction wheel. (FlatSAT's design calls for 3 reaction wheels but you will only test 1.) You will measure system performance to ensure that FlatSAT can meet orbital torque and momentum requirements. 
 
-You already submitted the prelab report for this lab. 
+Prelab: https://www.overleaf.com/read/prdzpknpdtgf#2cd623
 
 ## rotor mass properties
 
@@ -49,7 +49,7 @@ For today’s lab, FlatSAT will be powered by a 12 V lithium ion battery. The mo
 
 Copy the setup below, but **do not place the 3rd (middle) cell into the battery holder yet**. 
 
-![attitude_bb](../../fritzing_diagrams/04_attitude_bb.svg)
+![331X](../sources/fritzing/331X.svg)
 
 - add the motor driver (green square) 
   - connect to Arduino and motor

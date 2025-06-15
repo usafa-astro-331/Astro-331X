@@ -2,8 +2,6 @@
 
 In this lab you will build and test FlatSAT's attitude determination system including sun sensors, a magnetometer, and a rate gyroscope. 
 
-If I update the code in time, you will save attitude data to FlatSAT’s SD card storage and stream it over your XBee radio link. 
-
 ## equipment
 
 - 1 laptop

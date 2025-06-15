@@ -6,12 +6,9 @@ You will need this software to run Astro 331. Most software can be installed fro
 
 - XCTU* (https://hub.digi.com/support/products/xctu/)
   configure the radios used for the comm lab
-- fritzing* (https://fritzing.org/download/) to create breadboard diagrams
-
-- inkscape (`winget install inkscape.inkscape`) edit svg graphics and convert pdfs to svgs. 
 - Markdown software
-  - my favorite is typora* (https://typora.io/), but it’s not free
-  - typedown (`winget install typedown`) is free and good
+  - my favorite is obsidian--the free version is sufficient
+  - my other favorite is typora* (https://typora.io/), but it’s not free
 - version control
   - git (`winget install git.git`) version control and distribution of course material to lab/student computers
     - interfaces with github.com (https://github.com/usafa-astro-331/Astro-331X-2023)
@@ -20,24 +17,15 @@ You will need this software to run Astro 331. Most software can be installed fro
   - You may also want a robust git GUI. My favorite is Sourcetree* (https://sourcetreeapp.com/?v=win). It’s free, but requires an account from atlassian/bitbucket to activate. 
 
 - Arduino IDE (`winget install ArduinoSA.IDE.stable`)
-- arduino-cli (`winget install arduinosa.cli1) a scriptable command line tool to manage arduino boards and libraries
-  - the commands required to update arduino are scripted as `computer_environment/update_arduino.bat` and in each lab’s folder as `install_libraries.bat`. 
 - bash (linux command line)—execute some shell scripts
   - to get a bash terminal on windows, install ubuntu from the windows store. You can do this from the windows command line: `winget install 9PDXGNCFSCZV`
-
-- onshape (browser-based: https://www.onshape.com/en/) CAD software—good for collaboration; free academic license available
-- ultimaker cura* (https://ultimaker.com/software/ultimaker-cura/#links) slicer software to convert 3D parts into a printer toolpath
 
 
 ## documentation
 
 Documentation is written in markdown. Markdown is a simple markup language that still displays nicely in a text editor if necessary. 
 
-
-
 Instructions for each lab are found in that folder’s `README.md`. Github automatically display’s the contents of that file when you view the folder online. 
-
-
 
 Images can be added to the markdown file using relative paths, and then they will display locally and online at github. 
 
@@ -106,41 +94,6 @@ Each group will choose a PAN ID from 0x0 to 0xFFFF. Each group’s PAN ID must b
 
 For simplicity, the lab instructions direct the students to select a decimal number from 0 to 9999. 
 
-### ground station
-
-Students directly configure the PAN ID, DH, DL, and MY using the following commands. 
-
-`+++` requires 1-second of dead time on either side to enter configuration mode. It is not followed by the enter key, but all other commands are. 
-
-`ATWR` writes commands to non-volatile memory
-
-`ATCN` immediately exits command mode and resumes operation as a wireless serial link. 
-
-![AT_commands](../lab_03_communication/sources/AT_commands.png)
-
-### FlatSAT
-
-The provided Arduino sketch contains radio configuration commands. Students are instructed to change the PAN ID to match their ground station. 
-
-When uploaded, this code re-programs the radio to the correct PAN ID every time Arduino is restarted. 
-
-
-
-## fritzing (breadboard diagrams)
-
-Fritzing is open-source adjacent. You can download the source and compile it yourself, but they do list a price to purchase the software. 
-
-However, as of 2023, it is also easy to download for free. If you create a (free) account and login, you can go to the download page and download it directly. 
-
-<img src="../sources/fritzing/331X_bb.svg" alt="breadboard"  />
-
-To create diagrams to put in your instructions:
-
-- export as pdf
-- convert to svg
-- add svg (using relative path) to markdown file
-
-The current course diagram is found at `sources/fritzing/331X.fz`.
 
 ## git, Tortoisegit, github
 
@@ -210,12 +163,6 @@ Currently (2023) course repositories are public. The public (and students) only 
 With the number of people who might be making changes (1–2 instructors), the chance of conflicts is small. Even if we’re working on the same file, we’re probably not changing the same parts, and git is smart enough to merge most changes automatically. 
 
 Also, git’s error messages are usually explicit and helpful. If you don’t immediately recognize the problem, the answer is usually a quick search away. 
-
-### student/lab computers
-
-Before the first lab, I clone the course repository onto each lab computer (same setup instructions as above). 
-
-Before each lab, I have students follow instructions on the binder cover page to sync (pull) changes from the remote repository. 
 
 ## Arduino IDE
 

@@ -54,17 +54,13 @@ void setup() {
                 File dataFile = SD.open("iv_curve.csv", FILE_WRITE);
               // if the file is available, write to it:
               if (dataFile) {
-                dataFile.println("time (ms), current (mA), voltage (V)");
+                dataFile.println("time_ms, current_mA, voltage_V");
                 dataFile.close();
               }
               // if the file isn't open, pop up an error:
               else { Serial.println("error opening log file");
 					 Serial1.println("error opening log file");
 			  }
-
-Serial.println("time (ms), current (mA), voltage (V)");
-Serial1.println("time (ms), current (mA), voltage (V)");
-
 
 
 } // end function setup()
@@ -118,6 +114,7 @@ if (averaging_index >= num_samples){
     
     current = current / float(num_samples); 
     voltage = voltage / float(num_samples);
+    
     serial_line += ", current:";
 		SD_line += ", ";
 		serial_line += current; 
