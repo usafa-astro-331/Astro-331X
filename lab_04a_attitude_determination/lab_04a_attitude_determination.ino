@@ -75,7 +75,7 @@ void setup() {
     SD_line += "  gyr (dps)\n"; 
     SD_line += "  mag (uT)\n"; 
     SD_line += "  sun detector (count)\n"; 
-    SD_line_line += "  sun angle (deg)\n";
+    SD_line += "  sun angle (deg)\n";
 
     dataFile.print(SD_line);
     dataFile.close();
@@ -183,17 +183,17 @@ void loop() {
 		serial_line += sunny_reading; 
 
     
-    // // find sun direction
-    // // uncomment these lines to find sund direction
+    /* find sun direction */
+    // // uncomment these lines to find sun direction
     // // (highlight them, CTRL-/)
     // sun_x = ... ; // you fill in here--remember to end line with ;
     // sun_y = ... ; // you fill in here--remember to end line with ;
-    // sun_direction = (atan2(-sun_y*1.0, -sun_x*1.0) * RAD_TO_DEG +180.0); 
+    // 
+    // float sun_direction = (atan2(-sun_y*1.0, -sun_x*1.0) * RAD_TO_DEG +180.0); 
 		// 	/*NOTE: 
-    //  *1.0 converts from int to float
-		// 	+ 180 changes range to 0--360; 
-    //  */
-    //
+    //  *1.0 converts from int to float;  + 180 adjusts range to 0--360 */
+    
+    /* output sun heading */
     // serial_line += "\t"; //tab to separate fields
 		// serial_line += "sun:"; 
     // serial_line += sun_direction; 

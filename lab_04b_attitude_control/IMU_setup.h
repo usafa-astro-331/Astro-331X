@@ -12,17 +12,22 @@
 // SCL = SCL
 // if not using QWIIC connection, see datasheet for power and ground connections
 
-// float x_max = 19.12; 
-// float x_min = -11.7; 
-// float y_max = -32.18;
-// float y_min = -58.2; 
+/* magnetometer range values 
+ICM 20948 magnetometers drift quickly
 
-// magnetometer range values used for calibration
+For calibration:
+- use 1.0 initially
+- then spin satellite and observe mag values
+- update mag values below
+- re-upload code  
+*/
+
 float x_max = 1.0; 
-float x_min = -1.0; 
+float x_min = 1.0; 
 float y_max = 1.0;
-float y_min = -1.0; 
+float y_min = 1.0; 
 
+// calculate magnetometer calibration--DO NOT CHANGE
 float x_range = (x_max - x_min)/2; 
 float x_bias = x_max-x_range; 
 float y_range = (y_max - y_min)/2; 
